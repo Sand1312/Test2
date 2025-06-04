@@ -1,23 +1,29 @@
-import React from "react";
-
 import { Input, Button, Form, Space } from "antd";
+import React from "react";
 import {
   UserOutlined,
   EyeTwoTone,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
-import "./App.css";
-// import { register } from "./api";
 
-export default function Register() {
+const Login = () => {
   const onFinish = (values: any) => {
-    if (values.password !== values.confirmPassword) {
-      console.log("New password and confirm password do not match.");
-    }
+    console.log("Received values of form: ", values);
+    // try {
+    //   await login({ ...values });
+    //   const msg = await login({ ...values });
+    //   if (msg.status === "OK") {
+    //     const token = msg.result.token;
+    //     localStorage.setItem("token", token);
+    //     // await fetchUserInfo();
+    //   }
+    //   console.log(msg);
+    // } catch (e) {
+    //   console.log("error", e);
   };
   return (
     <Form
-      name="complex-form"
+      name="login-form"
       onFinish={onFinish}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
@@ -35,20 +41,16 @@ export default function Register() {
         </Space>
       </Form.Item>
 
-      <Form.Item
-        name="password"
-        noStyle
-        rules={[{ required: true, message: "Password is required" }]}
-      >
-        <Input.Password required placeholder="password" />
+      <Form.Item label="Password">
+        <Input.Password
+          placeholder="input password"
+          required
+          iconRender={(visible) =>
+            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+          }
+        />
       </Form.Item>
-      <Form.Item
-        name="confirmPassword"
-        noStyle
-        rules={[{ required: true, message: "Confirm Password is required" }]}
-      >
-        <Input.Password required placeholder="confirm password" />
-      </Form.Item>
+
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Submit
@@ -56,4 +58,6 @@ export default function Register() {
       </Form.Item>
     </Form>
   );
-}
+};
+
+export default Login;
