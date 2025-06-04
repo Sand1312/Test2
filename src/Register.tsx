@@ -39,7 +39,7 @@ export default function Register() {
       </Form.Item>
 
       <Form.Item label="Age" name="age">
-        <InputNumber min={1} max={101} />
+        <InputNumber min={1} max={101} width="100%" />
       </Form.Item>
 
       <Form.Item<RegisterType>
@@ -73,7 +73,7 @@ export default function Register() {
       </Form.Item>
 
       <Form.Item label="start date" name="startDate">
-        <DatePicker />
+        <DatePicker width="100%" />
       </Form.Item>
 
       <Form.Item
@@ -93,7 +93,7 @@ export default function Register() {
           }),
         ]}
       >
-        <DatePicker />
+        <DatePicker width="100%" />
       </Form.Item>
 
       <Form.Item
@@ -117,8 +117,9 @@ export default function Register() {
         ]}
       >
         <RangePicker
-        //   minDate={dayjs({getFieldValue(startDate)}, dateFormat)}
-        // maxDate={dayjs({getFieldValue(endDate)}, dateFormat)}
+          width="100%"
+          //   minDate={dayjs({getFieldValue(startDate)}, dateFormat)}
+          // maxDate={dayjs({getFieldValue(endDate)}, dateFormat)}
         />
       </Form.Item>
 
