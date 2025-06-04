@@ -79,7 +79,8 @@ export default function Register() {
       <Form.Item<RegisterType>
         label="Confirm Password"
         name="confirmPassword"
-        validateDebounce={1000}
+        dependencies={["password"]}
+        // validateDebounce={1000}
         rules={[
           { required: true, message: "Please input your password!" },
           ({ getFieldValue }) => ({
