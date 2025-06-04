@@ -1,13 +1,13 @@
-import React from "react";
-
-import { Input, Button, Form, Space } from "antd";
+import { Input, Button, Form } from "antd";
 import "./App.css";
-import Password from "antd/es/input/Password";
+// import Password from "antd/es/input/Password";
 // import { register } from "./api";
 
 export default function Register() {
   type RegisterType = {
     username?: string;
+    email?: string;
+    age?: number;
     password?: string;
     confirmPassword?: string;
   };
@@ -24,9 +24,46 @@ export default function Register() {
       style={{ maxWidth: 600 }}
     >
       <Form.Item<RegisterType>
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        label="Email"
+        name="email"
+        rules={[
+          { required: true, message: "Please input your email!" },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (
+                !value ||
+                getFieldValue("email")
+                  .toLowerCase()
+                  .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                  )
+              ) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error("Please enter a valid email!"));
+            },
+          }),
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Age"
+        name="age"
+        rules={[
+          ({}) => ({
+            validator(_, value) {
+              if (!value || value - parseInt(value) === 0) {
+                console.log("value", value);
+                console.log("Int value", parseInt(value));
+                console.log(value - parseInt(value));
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error("The Age is not an integer!"));
+            },
+          }),
+        ]}
       >
         <Input />
       </Form.Item>
@@ -59,6 +96,7 @@ export default function Register() {
       >
         <Input.Password />
       </Form.Item>
+
       <Form.Item label={null}>
         <Button type="primary" htmlType="submit">
           Submit
