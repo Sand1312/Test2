@@ -1,55 +1,65 @@
 import React from "react";
 
 import { Input, Button, Form, Space } from "antd";
-import {
-  UserOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
 import "./App.css";
+import Password from "antd/es/input/Password";
 // import { register } from "./api";
 
 export default function Register() {
-  const onFinish = (values: any) => {
-    if (values.password !== values.confirmPassword) {
-      console.log("New password and confirm password do not match.");
-    }
+  type RegisterType = {
+    username?: string;
+    password?: string;
+    confirmPassword?: string;
+  };
+
+  const onFinish = (values: RegisterType) => {
+    console.log("Receive values", values);
   };
   return (
     <Form
-      name="complex-form"
+      name="regis-form"
       onFinish={onFinish}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
     >
-      <Form.Item label="Username">
-        <Space>
-          <Form.Item
-            name="username"
-            noStyle
-            rules={[{ required: true, message: "Username is required" }]}
-          >
-            <Input style={{ width: 160 }} placeholder="Please input" />
-          </Form.Item>
-        </Space>
+      <Form.Item<RegisterType>
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: "Please input your username!" }]}
+      >
+        <Input />
       </Form.Item>
 
-      <Form.Item
+      <Form.Item<RegisterType>
+        label="Password"
         name="password"
-        noStyle
-        rules={[{ required: true, message: "Password is required" }]}
+        rules={[{ required: true, message: "Please input your password!" }]}
       >
-        <Input.Password required placeholder="password" />
+        <Input.Password />
       </Form.Item>
-      <Form.Item
+
+      <Form.Item<RegisterType>
+        label="Confirm Password"
         name="confirmPassword"
-        noStyle
-        rules={[{ required: true, message: "Confirm Password is required" }]}
+        validateDebounce={1000}
+        rules={[
+          { required: true, message: "Please input your password!" },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue("password") === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                new Error("The new password that you entered do not match!")
+              );
+            },
+          }),
+        ]}
       >
-        <Input.Password required placeholder="confirm password" />
+        <Input.Password />
       </Form.Item>
-      <Form.Item>
+      <Form.Item label={null}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>

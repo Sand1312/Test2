@@ -1,57 +1,46 @@
 import { Input, Button, Form, Space } from "antd";
-import React from "react";
-import {
-  UserOutlined,
-  EyeTwoTone,
-  EyeInvisibleOutlined,
-} from "@ant-design/icons";
+import type { FormProps } from "antd";
+
+type LoginType = {
+  username?: string;
+  password?: string;
+};
 
 const Login = () => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-    // try {
-    //   await login({ ...values });
-    //   const msg = await login({ ...values });
-    //   if (msg.status === "OK") {
-    //     const token = msg.result.token;
-    //     localStorage.setItem("token", token);
-    //     // await fetchUserInfo();
-    //   }
-    //   console.log(msg);
-    // } catch (e) {
-    //   console.log("error", e);
+  const onFinish: FormProps<LoginType>["onFinish"] = (values) => {
+    console.log("Success:", values);
+  };
+  const onFinishFailed: FormProps<LoginType>["onFinishFailed"] = (
+    errorInfo
+  ) => {
+    console.log("Failed:", errorInfo);
   };
   return (
     <Form
       name="login-form"
       onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
     >
-      <Form.Item label="Username">
-        <Space>
-          <Form.Item
-            name="username"
-            noStyle
-            rules={[{ required: true, message: "Username is required" }]}
-          >
-            <Input style={{ width: 160 }} placeholder="Please input" />
-          </Form.Item>
-        </Space>
+      <Form.Item<LoginType>
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: "Please input your username!" }]}
+      >
+        <Input />
       </Form.Item>
 
-      <Form.Item label="Password">
-        <Input.Password
-          placeholder="input password"
-          required
-          iconRender={(visible) =>
-            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-          }
-        />
+      <Form.Item<LoginType>
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: "Please input your password!" }]}
+      >
+        <Input.Password />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item label={null}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
