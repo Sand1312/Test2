@@ -61,7 +61,7 @@
 //   );
 // }
 
-import { Form, Select, type SelectProps } from "antd";
+import { Form, Select } from "antd";
 import React from "react";
 import { PROVINCE } from "./constants/province";
 import { DISTRICT } from "./constants/district";
@@ -145,3 +145,4 @@ const AddressForm: React.FC = () => {
 };
 
 export default AddressForm;
+// Do not use state?
