@@ -5,20 +5,19 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(customParseFormat);
 
+type RegisterType = {
+  username: string;
+  email: string;
+  age: number;
+  password: string;
+  confirmPassword: string;
+  startDate: Date;
+  endDate: Date;
+  rangeDate: Date[];
+};
 const dateFormat = "DD-MM-YYYY";
 
 export default function Register() {
-  type RegisterType = {
-    username: string;
-    email: string;
-    age: number;
-    password: string;
-    confirmPassword: string;
-    startDate: Date;
-    endDate: Date;
-    rangeDate: Date[];
-  };
-
   const [form] = Form.useForm();
   const { RangePicker } = DatePicker;
 
@@ -35,7 +34,14 @@ export default function Register() {
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 800 }}
     >
-      <Form.Item<RegisterType> label="Email" name="email">
+      <Form.Item<RegisterType>
+        label="Email"
+        name="email"
+        rules={[
+          { required: true, message: "Please enter your email!" },
+          { type: "email", message: "The input is not valid E-mail!" },
+        ]}
+      >
         <Input type="email" />
       </Form.Item>
 

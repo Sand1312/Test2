@@ -1,5 +1,3 @@
-import type { SelectProps } from "antd";
-
 export interface FieldDef {
   type: string;
   label: string;

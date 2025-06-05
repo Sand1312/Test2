@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./Login";
 import Register from "./Register";
-import Form from "./Form";
+import AddressFrom from "./Form";
 
 export default function App() {
   // const [position, setPosition] = useState<"start" | "end">("end");
@@ -13,7 +13,7 @@ export default function App() {
         <Route index element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/form" element={<Form />} />
+        <Route path="/form" element={<AddressFrom />} />
       </Routes>
     </Router>
   );

@@ -33,7 +33,7 @@ const DynamicForm: React.FC<Props> = ({ fields, onClick }) => {
       onFinish={onClick}
       onValuesChange={() => {}}
     >
-      {fields.map((field) => (
+      {/* {fields.map((field) => (
         <Form.Item
           key={field.name}
           name={field.name}
@@ -42,6 +42,9 @@ const DynamicForm: React.FC<Props> = ({ fields, onClick }) => {
         >
           {renderField(field, form.getFieldsValue())}
         </Form.Item>
+      ))} */}
+      {fields.map((field) => (
+        <>{renderField(field, form.getFieldsValue())}</>
       ))}
       <Form.Item>
         <Button type="primary" htmlType="submit">
